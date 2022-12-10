@@ -1,5 +1,6 @@
 <script>
  const month = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+ //const week_days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
  const week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
  const days = [28 || 29, 30, 31];
  const date = new Date();
@@ -9,7 +10,10 @@
  const dayOfDoom = PIday.getDay();
  let monLen = []
  let firstDay = []
+ let monCal = [[],[],[],[],[],[],[],[],[],[],[],[],]
+ let yearObj = {}
 
+ 
  function calcLeap(x) {
      if (x % 4 == 0) {
          const leap = true;
@@ -22,8 +26,7 @@
          days[0] = 28;
      }
  }
- calcLeap(year);
-
+ calcLeap(year); 
  function daysInMon(x, y) {
      for (let i = 0; i <= 11; i++) {
          if (i == 1) {
@@ -36,7 +39,6 @@
              monLen.push(y[2]);
          }
      }
-     console.log(monLen)
  }
  daysInMon(month, days);
 
@@ -50,25 +52,23 @@
 	     firstDay.push(-ans)
 	 }
      }
-     console.log(firstDay)
  }
  getDay(doomsDay, dayOfDoom)
 
 
  function arr42() {
      for (let i = 0; i < month.length; i++) {
-         this[month[i] + 'Arr'] = new Array();
 	 let k = monLen.at(i -1 );
          for (let j = firstDay[i]; j > 0; j--) {
-             this[month[i] + 'Arr'].unshift(k);
+             monCal[i].unshift(k);
 	     k--
          }
          for (let j = 1; j <= monLen[i]; j++) {
-             this[month[i] + 'Arr'].push(j);
+             monCal[i].push(j);
          }
 	 k = 1
-	 for (let j = this[month[i] + 'Arr'].length; j < 42; j++) {
-             this[month[i] + 'Arr'].push(k);
+	 for (let j = monCal[i].length; j < 42; j++) {
+             monCal[i].push(k);
 	     k++
          }
      }
@@ -80,15 +80,51 @@
 	 let temp = []
 	 let start = 0
 	 for(let j = 7; j < 43; j += 7) {
-	     temp.push(this[month[i] + 'Arr'].slice(start, j))
+	     temp.push(monCal[i].slice(start, j))
 	     start +=7
 	 }
-	 this[month[i] + 'Arr'] = temp
+	 monCal[i] = temp
      }
  }
  arrSplit()
- console.table(MayArr)
-</script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+ function objMaker(x, y, z){
+     y.forEach((e, i) => {
+	 x[e] = z[i];
+     });    
+ }
+ objMaker(yearObj, month, monCal)
+ console.log(yearObj.length)
+</script>
+<body class="bg-black">
+<h1 class="text-white text-2xl text-center pt-6">Welcome to {year}</h1>
+<div class=' bg-black grid lg:grid-cols-2 place-content-evenly gap-12 m-12 '>
+    {#each Object.entries(yearObj) as [key, value], index (key)}
+	<div class="inline-block bg-slate-500 flex flex-col flex-nowrap items-center p-0 border break-after-page">
+	<p class="block text-center py-1.5 ">{key}</p>
+	<table class=" bg-slate-500 border border-collapse bg-opacity-50 w-full">
+	    <thead>
+		<tr class="daysWeek">
+		    {#each week_days as col}
+			<th class="bg-gray-600 text-neutral-300 border border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+		    {/each}
+		</tr>
+	    </thead>
+	    <tbody>
+	    {#each value as mon}
+	    <tr class="daysMon">
+		{#each mon as cell}
+		    <td class="border border-gray-900 py-1.5">{cell}</td>
+		    {/each}
+	    </tr>
+	    {/each}
+	    </tbody>
+	</table>
+    </div>
+{/each}
+</div>
+<footer class ="bg-black">
+    
+</footer>
+</body>
+
