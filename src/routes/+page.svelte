@@ -95,34 +95,140 @@
  }
  objMaker(yearObj, month, monCal)
  console.log(yearObj.length)
-</script>
-<body class="bg-black">
-<h1 class="text-white text-2xl text-center pt-6">Welcome to {year}</h1>
-<div class=' bg-black grid lg:grid-cols-2 place-content-evenly gap-12 m-12 '>
+
+
+ function 3rdYear(){
+     let main = `<div class=' bg-black grid lg:grid-cols-2 place-content-evenly gap-12 m-12 '>
     {#each Object.entries(yearObj) as [key, value], index (key)}
-	<div class="inline-block bg-slate-500 flex flex-col flex-nowrap items-center p-0 border break-after-page">
+	{#if index > 7}
+	    <div class="inline-block bg-slate-900 flex flex-col flex-nowrap items-center p-0 border break-after-page">
+		
 	<p class="block text-center py-1.5 ">{key}</p>
-	<table class=" bg-slate-500 border border-collapse bg-opacity-50 w-full">
+	<table class=" bg-slate-500 bg-opacity-50 w-full">
 	    <thead>
 		<tr class="daysWeek">
 		    {#each week_days as col}
-			<th class="bg-gray-600 text-neutral-300 border border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			
+			{#if col == 'Sunday' || col == 'Saturday'}
+			    <th class="text-purple-900 border border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			{:else}
+			    <th class="text-black border border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			{/if}
 		    {/each}
 		</tr>
 	    </thead>
 	    <tbody>
-	    {#each value as mon}
+		{#each value as mon}
+		    
 	    <tr class="daysMon">
 		{#each mon as cell}
+		    
 		    <td class="border border-gray-900 py-1.5">{cell}</td>
-		    {/each}
+		{/each}
 	    </tr>
-	    {/each}
+		{/each}
 	    </tbody>
 	</table>
-    </div>
+	</div>`
+ }
+</script>
+
+
+<body class="bg-black">
+<h1 class="text-white text-2xl text-center pt-6">Welcome to {year}</h1>
+<div class=' bg-black grid lg:grid-cols-2 place-content-evenly gap-12 m-12 '>
+    {#each Object.entries(yearObj) as [key, value], index (key)}
+	{#if index > 7}
+	    <div class="inline-block bg-slate-900 flex flex-col flex-nowrap items-center p-0 border break-after-page">
+		
+	<p class="block text-center py-1.5 ">{key}</p>
+	<table class=" bg-slate-500 bg-opacity-50 w-full">
+	    <thead>
+		<tr class="daysWeek">
+		    {#each week_days as col}
+			
+			{#if col == 'Sunday' || col == 'Saturday'}
+			    <th class="text-purple-900 border border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			{:else}
+			    <th class="text-black border border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			{/if}
+		    {/each}
+		</tr>
+	    </thead>
+	    <tbody>
+		{#each value as mon}
+		    
+	    <tr class="daysMon">
+		{#each mon as cell}
+		    
+		    <td class="border border-gray-900 py-1.5">{cell}</td>
+		{/each}
+	    </tr>
+		{/each}
+	    </tbody>
+	</table>
+	</div>
+    {:else if index > 3}
+ 	<div class="inline-block bg-slate-500 flex flex-col flex-nowrap items-center p-0 border">
+	<p class="block text-center py-1.5 ">{key}</p>
+	<table class=" bg-slate-500 bg-opacity-50 w-full">
+	    <thead>
+		<tr class="daysWeek">
+		    {#each week_days as col}
+			
+			{#if col == 'Sunday' || col == 'Saturday'}
+			    <th class="text-purple-900 border rounded-lg border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			{:else}
+			    <th class="text-black border rounded-lg border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			{/if}
+		    {/each}
+		</tr>
+	    </thead>
+	    <tbody>
+		{#each value as mon}
+		    
+	    <tr class="daysMon">
+		{#each mon as cell}
+		    
+		    <td class="border roudend border-gray-900 py-1.5">{cell}</td>
+		{/each}
+	    </tr>
+		{/each}
+	    </tbody>
+	</table>
+	</div>
+{:else}
+	<div class="inline-block bg-slate-500 flex flex-col flex-nowrap items-center p-0 border break-after-page">
+	<p class="block text-center py-1.5 ">{key}</p>
+	<table class=" bg-slate-500 bg-opacity-50 w-full">
+	    <thead>
+		<tr class="daysWeek">
+		    {#each week_days as col}
+			
+			{#if col == 'Sunday' || col == 'Saturday'}
+			    <th class="text-purple-900 border rounded-lg border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			{:else}
+			    <th class="text-black border rounded-lg border-gray-900 shrink px-2.5 py-1.5">{col}</th>
+			{/if}
+		    {/each}
+		</tr>
+	    </thead>
+	    <tbody>
+		{#each value as mon}
+		    
+	    <tr class="daysMon">
+		{#each mon as cell}
+		    
+		    <td class="border roudend border-gray-900 py-1.5">{cell}</td>
+		{/each}
+	    </tr>
+		{/each}
+	    </tbody>
+	</table>
+	</div>
+{/if}
+
 {/each}
-</div>
 <footer class ="bg-black">
     
 </footer>
