@@ -97,7 +97,7 @@
  console.log(yearObj.length)
 
 
- function 3rdYear(){
+ function thirdYear(){
      let main = `<div class=' bg-black grid lg:grid-cols-2 place-content-evenly gap-12 m-12 '>
     {#each Object.entries(yearObj) as [key, value], index (key)}
 	{#if index > 7}
